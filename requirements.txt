@@ -4,3 +4,7 @@ chromadb
 tiktoken
 requests
 beautifulsoup4
+pydantic
+rich
+click
+typer
