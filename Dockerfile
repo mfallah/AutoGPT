@@ -1,20 +1,24 @@
-# Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# نصب dependencies سیستمی مورد نیاز
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# کپی کردن تمام فایل‌های پروژه
+COPY . .
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# نصب dependencies پایتون
+RUN pip install --no-cache-dir -e .
 
-# Define environment variables
-ENV PYTHONPATH=/app
+# ایجاد دایرکتوری برای داده‌ها
+RUN mkdir -p /app/data
 
-# Run the application
+# expos کردن پورت (اگر لازم است)
+EXPOSE 8000
+
+# اجرای برنامه
 CMD ["python", "-m", "autogpt"]
