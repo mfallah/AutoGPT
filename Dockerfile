@@ -17,4 +17,4 @@ EXPOSE 80
 ENV PYTHONPATH=/app
 
 # Run the application
-CMD ["python", "autogpt/main.py"]
+CMD ["python", "-m", "autogpt"]
